@@ -23,7 +23,7 @@ struct MenuItem: Content {
         detailText = try valueContainer.decode(String.self, forKey: CodingKeys.detailText)
         price = try valueContainer.decode(Double.self, forKey: CodingKeys.price)
         category = try valueContainer.decode(String.self, forKey: CodingKeys.category)
-        imageURL = URL(string: "http://localhost:8090/images/\(id).png")!
+        imageURL = URL(string: "http://localhost:8090/images/\(id).jpg")!
         preparationTime = try valueContainer.decode(Int.self, forKey: CodingKeys.preparationTime)
         
     }
