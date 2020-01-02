@@ -1,20 +1,38 @@
-<p align="center">
-    <img src="https://user-images.githubusercontent.com/1342803/36623515-7293b4ec-18d3-11e8-85ab-4e2f8fb38fbd.png" width="320" alt="API Template">
-    <br>
-    <br>
-    <a href="http://docs.vapor.codes/3.0/">
-        <img src="http://img.shields.io/badge/read_the-docs-2196f3.svg" alt="Documentation">
-    </a>
-    <a href="https://discord.gg/vapor">
-        <img src="https://img.shields.io/discord/431917998102675485.svg" alt="Team Chat">
-    </a>
-    <a href="LICENSE">
-        <img src="http://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT License">
-    </a>
-    <a href="https://circleci.com/gh/vapor/api-template">
-        <img src="https://circleci.com/gh/vapor/api-template.svg?style=shield" alt="Continuous Integration">
-    </a>
-    <a href="https://swift.org">
-        <img src="http://img.shields.io/badge/swift-5.1-brightgreen.svg" alt="Swift 5.1">
-    </a>
-</p>
+# Restaurant Server Vapor
+
+## Tested on client
+* [github.com/dbystruev/Restaurant-2019.08](https://github.com/dbystruev/Restaurant-2019.08.git)
+
+## Prepare temporary docker container
+```bash
+docker run -p 8090:8090 -it --name Restaurant -w/Restaurant swift bash
+git clone https://github.com/dbystruev/Restaurant-Server-Vapor.git .
+apt update && apt -y upgrade
+apt -y install libssl-dev zlib1g-dev
+swift build -c release
+exit
+```
+
+## Create docker image
+```bash
+docker commit Restaurant restaurant
+docker rm Restaurant
+```
+
+## Run new detached `Restaurant` container from `restaurant` image
+```bash
+docker run --name Restaurant -p8090:8090 -d restaurant swift run -c release
+```
+
+## API
+* [/categories](http://server.getoutfit.ru:8090/categories) — list of caregories
+* [/menu?category=salads](http://server.getoutfit.ru:8090/menu?category=salads) - meals in `salads` category
+* [/menu](http://server.getoutfit.ru:8090/menu) — all meals in all categories
+* /order — post meals' IDs to get preparation time:
+    ```bash
+    curl \
+        -X POST \
+        -H "Content-Type: application/json" \
+        -d '{"menuIds": [2, 1, 1, 4, 5]}' \
+        localhost:8090/order
+    ```
