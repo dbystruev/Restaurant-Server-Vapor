@@ -30,14 +30,14 @@ docker run --name Restaurant -p8090:8090 -d restaurant swift run -c release
 ```
 
 ## API
-* [/categories](http://mda.getoutfit.ru:8090/categories) — list of caregories
-* [/menu?category=salads](http://mda.getoutfit.ru:8090/menu?category=salads) - meals in `salads` category
-* [/menu](http://mda.getoutfit.ru:8090/menu) — all meals in all categories
+* [/categories](http://mda.getoutfit.co:8090/categories) — list of caregories
+* [/menu?category=salads](http://mda.getoutfit.co:8090/menu?category=salads) - meals in `salads` category
+* [/menu](http://mda.getoutfit.co:8090/menu) — all meals in all categories
 * /order — post meals' IDs to get preparation time:
     ```bash
     curl \
         -X POST \
         -H "Content-Type: application/json" \
         -d '{"menuIds": [2, 1, 1, 4, 5]}' \
-        mda.getoutfit.ru:8090/order
+        mda.getoutfit.co:8090/order
     ```
